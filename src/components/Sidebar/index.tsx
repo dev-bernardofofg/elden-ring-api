@@ -129,6 +129,7 @@ export const Sidebar = () => {
       ],
     },
   ];
+
   const options = [
     {
       id: 5,
@@ -254,14 +255,14 @@ export const Sidebar = () => {
       <div
         className={`flex flex-col ${
           !isSidebarOpen ? "gap-4" : "gap-2"
-        } items-center w-full`}
+        } items-center w-full overflow-y-hidden`}
       >
         <div className="mb-4">
           <img src={Logo} className="size-16 filter drop-shadow-2xl" />
         </div>
 
         {!isSidebarOpen ? (
-          <div className="flex flex-col gap-4 px-4 w-full">
+          <div className="flex flex-col gap-4 px-4 w-full overflow-y-auto max-h-screen">
             <AccordionSideBar
               title={optionsEquipments[0].name}
               icon={<GiSwapBag size={20} />}
@@ -410,7 +411,7 @@ export const Sidebar = () => {
           !isSidebarOpen ? "justify-end" : "justify-center"
         }`}
       >
-        <button onClick={() => toggleSidebar()}>
+        <button onClick={() => toggleSidebar()} className="pt-4">
           {isSidebarOpen ? (
             <TbArrowBadgeRightFilled size={28} />
           ) : (
