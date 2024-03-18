@@ -41,15 +41,7 @@ export const Ashes = () => {
           {data.map((value) => (
             <AshesDialog data={value.id}>
               <div className="flex flex-col justify-center items-center gap-2">
-                <img
-                  src={
-                    value.name === "Golden Bolt"
-                      ? "https://eldenring.wiki.fextralife.com/file/Elden-Ring/golden_bolt_elden_ring_wiki_guide_200px.png"
-                      : value.image
-                  }
-                  className="size-32"
-                  title={value.name}
-                />
+                <img src={value.image} className="size-32" title={value.name} />
                 <p className="font-semibold">{value.name}</p>
               </div>
             </AshesDialog>
