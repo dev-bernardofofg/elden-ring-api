@@ -5,6 +5,7 @@ import { ArmorProps } from ".";
 import axios from "axios";
 import { Dialog } from "@/components/Dialog";
 import { DialogDescription } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
 
 interface ArmorDialogProps {
   children: ReactNode;
@@ -13,6 +14,8 @@ interface ArmorDialogProps {
 
 export const ArmorDialog = ({ children, data }: ArmorDialogProps) => {
   const [datas, setData] = useState<ArmorProps | null>(null);
+
+  const { toast } = useToast();
   const getData = async () => {
     try {
       const response = await axios.get(
@@ -20,7 +23,11 @@ export const ArmorDialog = ({ children, data }: ArmorDialogProps) => {
       );
       setData(response.data.data);
     } catch {
-      console.log("teste");
+      toast({
+        title: "Erro!",
+        description: "Houve um problema na sua requisição. ",
+        className: "bg-red-500 text-gray-200 border-0",
+      });
     }
   };
 
@@ -41,7 +48,9 @@ export const ArmorDialog = ({ children, data }: ArmorDialogProps) => {
                 <p className="font-bold text-stone-200">Damage Negation</p>
                 {datas?.dmgNegation.map((value) => (
                   <div>
-                    <span className={`capitalize font-bold text-stone-300 mr-1`}>
+                    <span
+                      className={`capitalize font-bold text-stone-300 mr-1`}
+                    >
                       {value.name}:
                     </span>
                     <span>{value.amount}</span>
@@ -54,7 +63,9 @@ export const ArmorDialog = ({ children, data }: ArmorDialogProps) => {
 
                 {datas?.resistance.map((value) => (
                   <div>
-                    <span className={`capitalize font-bold text-stone-300 mr-1`}>
+                    <span
+                      className={`capitalize font-bold text-stone-300 mr-1`}
+                    >
                       {value.name}:
                     </span>
                     <span>{value.amount}</span>

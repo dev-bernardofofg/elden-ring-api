@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import { Sidebar } from "./components/Sidebar";
+import { Toaster } from "./components/ui/toaster";
 
 export const App = () => {
   return (
@@ -8,6 +9,7 @@ export const App = () => {
         <Sidebar />
         <section className="w-[calc(100%-8rem)] p-8">
           <Outlet />
+          <Toaster />
         </section>
       </main>
     </>

@@ -5,14 +5,17 @@ import { AmmosProps } from ".";
 import axios from "axios";
 import { Dialog } from "@/components/Dialog";
 import { DialogDescription } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
 
 interface AmmoDialogProps {
   children: ReactNode;
-  data: any;
+  data: string;
 }
 
 export const AmmoDialog = ({ children, data }: AmmoDialogProps) => {
   const [datas, setData] = useState<AmmosProps | null>(null);
+  const { toast } = useToast();
+
   const getData = async () => {
     try {
       const response = await axios.get(
@@ -20,7 +23,11 @@ export const AmmoDialog = ({ children, data }: AmmoDialogProps) => {
       );
       setData(response.data.data);
     } catch {
-      console.log("teste");
+      toast({
+        title: "Erro!",
+        description: "Houve um problema na sua requisição. ",
+        className: "bg-red-500 text-gray-200 border-0",
+      });
     }
   };
 
@@ -41,7 +48,7 @@ export const AmmoDialog = ({ children, data }: AmmoDialogProps) => {
             <div className="flex flex-col gap-1">
               {datas?.attackPower.map((value) => (
                 <div>
-                  <span className={`capitalize font-bold text-white mr-1`}>
+                  <span className="capitalize font-bold text-white mr-1">
                     {value.name}:
                   </span>
                   <span>{value.amount}</span>
