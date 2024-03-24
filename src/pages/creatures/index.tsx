@@ -40,7 +40,7 @@ export const Creature = () => {
             !value.image ? (
               <></>
             ) : (
-              <CreaturesDialog data={value.id}>
+              <CreaturesDialog data={value.id} key={value.id}>
                 <div className="flex flex-col justify-center items-center gap-2">
                   <img
                     src={value.image}

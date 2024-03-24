@@ -42,7 +42,7 @@ export const Ashes = () => {
             !value.image ? (
               <></>
             ) : (
-              <AshesDialog data={value.id}>
+              <AshesDialog data={value.id} key={value.id}>
                 <div className="flex flex-col justify-center items-center gap-2">
                   <img
                     src={value.image}

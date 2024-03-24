@@ -42,7 +42,7 @@ export const Items = () => {
             !value.image ? (
               <></>
             ) : (
-              <ItemDialog data={value.id}>
+              <ItemDialog data={value.id} key={value.id}>
                 <div className="flex flex-col justify-center items-center gap-2">
                   <img
                     src={value.image}

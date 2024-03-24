@@ -50,7 +50,7 @@ export const Incantation = () => {
             !value.image ? (
               <></>
             ) : (
-              <IncantationDialog data={value.id}>
+              <IncantationDialog data={value.id} key={value.id}>
                 <div className="flex flex-col justify-center items-center gap-2">
                   <img
                     src={value.image}
