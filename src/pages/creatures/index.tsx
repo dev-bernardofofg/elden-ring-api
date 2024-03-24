@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { ClassesDialog } from "../classes/dialog";
 import { Pagination } from "@/components/Pagination";
+import { CreaturesDialog } from "./dialog";
 
 export interface CreaturesProps {
   id: string;
@@ -19,7 +19,7 @@ export const Creature = () => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `https://eldenring.fanapis.com/api/creatures?limit=20&page=${page}`
+        `https://eldenring.fanapis.com/api/creatures?limit=16&page=${page}`
       );
       setData(response.data.data);
       setCount(response.data.count);
@@ -40,7 +40,7 @@ export const Creature = () => {
             !value.image ? (
               <></>
             ) : (
-              <ClassesDialog data={value.id}>
+              <CreaturesDialog data={value.id}>
                 <div className="flex flex-col justify-center items-center gap-2">
                   <img
                     src={value.image}
@@ -49,7 +49,7 @@ export const Creature = () => {
                   />
                   <p className="font-semibold">{value.name}</p>
                 </div>
-              </ClassesDialog>
+              </CreaturesDialog>
             )
           )}
         </div>
