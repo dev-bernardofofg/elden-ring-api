@@ -46,14 +46,22 @@ export const Ammos = () => {
       Munições
       <div className="flex overflow-y-auto max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
-          {data.map((value) => (
-            <AmmoDialog data={value.id} key={value.id}>
-              <div className="flex flex-col justify-center items-center gap-2">
-                <img src={value.image} className="size-32" title={value.name} />
-                <p className="font-semibold">{value.name}</p>
-              </div>
-            </AmmoDialog>
-          ))}
+          {data.map((value) =>
+            !value.image ? (
+              <></>
+            ) : (
+              <AmmoDialog data={value.id} key={value.id}>
+                <div className="flex flex-col justify-center items-center gap-2">
+                  <img
+                    src={value.image}
+                    className="size-32"
+                    title={value.name}
+                  />
+                  <p className="font-semibold">{value.name}</p>
+                </div>
+              </AmmoDialog>
+            )
+          )}
         </div>
       </div>
       <Pagination
