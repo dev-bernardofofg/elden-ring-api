@@ -12,10 +12,12 @@ export interface IncantationProps {
   cost: number;
   slots: number;
   effects: string;
-  requires: [{
-    name: string;
-    amount: string;
-  }];
+  requires: [
+    {
+      name: string;
+      amount: string;
+    }
+  ];
 }
 
 export const Incantation = () => {
