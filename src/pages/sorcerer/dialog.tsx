@@ -35,8 +35,6 @@ export const SorcererDialog = ({ children, data }: SorcererDialogProps) => {
     }
   };
 
-  console.log(datas);
-
   useEffect(() => {
     getData();
   }, []);

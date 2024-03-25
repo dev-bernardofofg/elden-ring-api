@@ -35,8 +35,6 @@ export const ShieldDialog = ({ children, data }: ShieldDialogProps) => {
     }
   };
 
-  console.log(datas);
-
   useEffect(() => {
     getData();
   }, []);
