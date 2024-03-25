@@ -2,6 +2,7 @@ import { Pagination } from "@/components/Pagination";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ItemDialog } from "./dialog";
+import { FormSearch } from "@/components/Form";
 
 export interface ItemProps {
   id: string;
@@ -14,14 +15,22 @@ export interface ItemProps {
 
 export const Items = () => {
   const [data, setData] = useState<ItemProps[]>([]);
+  const [nameFilter, setNameFilter] = useState("");
   const [count, setCount] = useState(16);
   const [page, setPage] = useState(0);
 
   const getData = async () => {
     try {
-      const response = await axios.get(
-        `	https://eldenring.fanapis.com/api/items?limit=16&page=${page}`
-      );
+      let response;
+      if (nameFilter) {
+        response = await axios.get(
+          `https://eldenring.fanapis.com/api/items?name=${nameFilter}`
+        );
+      } else {
+        response = await axios.get(
+          `https://eldenring.fanapis.com/api/items?limit=16&page=${page}`
+        );
+      }
 
       setData(response.data.data);
       setCount(response.data.count);
@@ -32,11 +41,12 @@ export const Items = () => {
 
   useEffect(() => {
     getData();
-  }, [page]);
+  }, [page, nameFilter]);
   return (
     <div>
-      Items
-      <div className="flex overflow-y-auto max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
+      <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
+        Items
+        <FormSearch setName={setNameFilter} />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
           {data.map((value) =>
             !value.image ? (

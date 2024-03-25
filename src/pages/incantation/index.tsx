@@ -2,6 +2,7 @@ import { Pagination } from "@/components/Pagination";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IncantationDialog } from "./dialog";
+import { FormSearch } from "@/components/Form";
 
 export interface IncantationProps {
   id: string;
@@ -12,24 +13,32 @@ export interface IncantationProps {
   cost: number;
   slots: number;
   effects: string;
-  requires: [
-    {
-      name: string;
-      amount: string;
-    }
-  ];
+  requires: RequireProps[];
+}
+
+interface RequireProps {
+  name: string;
+  amount: string;
 }
 
 export const Incantation = () => {
   const [data, setData] = useState<IncantationProps[]>([]);
+  const [nameFilter, setNameFilter] = useState("");
   const [count, setCount] = useState(16);
   const [page, setPage] = useState(0);
 
   const getData = async () => {
     try {
-      const response = await axios.get(
-        `https://eldenring.fanapis.com/api/incantations?limit=16&page=${page}`
-      );
+      let response;
+      if (nameFilter) {
+        response = await axios.get(
+          `https://eldenring.fanapis.com/api/incantations?name=${nameFilter}`
+        );
+      } else {
+        response = await axios.get(
+          `https://eldenring.fanapis.com/api/incantations?limit=16&page=${page}`
+        );
+      }
 
       setData(response.data.data);
       setCount(response.data.count);
@@ -40,11 +49,12 @@ export const Incantation = () => {
 
   useEffect(() => {
     getData();
-  }, [page]);
+  }, [page, nameFilter]);
   return (
     <div>
-      Incantation
-      <div className="flex overflow-y-auto max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
+      <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
+        Incantation
+        <FormSearch setName={setNameFilter} />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
           {data.map((value) =>
             !value.image ? (

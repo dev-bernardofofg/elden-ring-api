@@ -1,8 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Pagination } from "@/components/Pagination";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { AmmoDialog } from "./dialog";
+import { FormSearch } from "@/components/Form";
 
 export interface AmmosProps {
   id: string;
@@ -21,14 +21,22 @@ interface AttackPowerProps {
 
 export const Ammos = () => {
   const [data, setData] = useState<AmmosProps[]>([]);
+  const [nameFilter, setNameFilter] = useState("");
   const [count, setCount] = useState(16);
   const [page, setPage] = useState(0);
 
   const getData = async () => {
     try {
-      const response = await axios.get(
-        `https://eldenring.fanapis.com/api/ammos?limit=16&page=${page}`
-      );
+      let response;
+      if (nameFilter) {
+        response = await axios.get(
+          `https://eldenring.fanapis.com/api/ammos?name=${nameFilter}`
+        );
+      } else {
+        response = await axios.get(
+          `https://eldenring.fanapis.com/api/ammos?limit=16&page=${page}`
+        );
+      }
 
       setData(response.data.data);
       setCount(response.data.count);
@@ -39,12 +47,13 @@ export const Ammos = () => {
 
   useEffect(() => {
     getData();
-  }, [page]);
+  }, [page, nameFilter]);
 
   return (
     <div>
-      Munições
-      <div className="flex overflow-y-auto max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
+      <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
+        Munições
+        <FormSearch setName={setNameFilter} />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
           {data.map((value) =>
             !value.image ? (
