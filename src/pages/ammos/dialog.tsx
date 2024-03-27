@@ -47,7 +47,7 @@ export const AmmoDialog = ({ children, data }: AmmoDialogProps) => {
             </div>
             <div className="flex flex-col gap-1">
               {datas?.attackPower.map((value) => (
-                <div>
+                <div key={value.name}>
                   <span className="capitalize font-bold text-white mr-1">
                     {value.name}:
                   </span>

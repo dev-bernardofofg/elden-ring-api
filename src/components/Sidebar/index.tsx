@@ -28,10 +28,12 @@ import {
 } from "react-icons/tb";
 import { useSidebar } from "@/context/SidebarContext";
 import { AccordionSideBar } from "../AccordionSidebar";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 export const Sidebar = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
   const location = useLocation();
+  const { darkMode } = useDarkMode();
 
   const optionsEquipments = [
     {
@@ -248,9 +250,9 @@ export const Sidebar = () => {
   ];
   return (
     <div
-      className={`${
-        isSidebarOpen ? "w-32" : "w-80"
-      } bg-stone-800 flex flex-col justify-between items-center py-6 transition-all shadow-lg`}
+      className={`${isSidebarOpen ? "w-32" : "w-80"} ${
+        darkMode ? "bg-stone-800" : "bg-stone-100"
+      } flex flex-col justify-between items-center py-6 transition-all shadow-lg`}
     >
       <div
         className={`flex flex-col ${
@@ -273,19 +275,37 @@ export const Sidebar = () => {
                     <Button
                       className={`group ${
                         location.pathname === option.to
-                          ? "bg-yellow-800"
-                          : "bg-stone-700"
+                          ? darkMode
+                            ? "bg-yellow-800"
+                            : "bg-yellow-600"
+                          : darkMode
+                          ? "bg-stone-700"
+                          : "bg-stone-300 text-stone-700"
                       }  transition-all ${
                         isSidebarOpen
                           ? "w-12"
                           : "flex gap-2 justify-start w-full"
                       }`}
                     >
-                      <div className="group-hover:text-yellow-800">
+                      <div
+                        className={`${
+                          darkMode ? "text-white" : "text-stone-700"
+                        } ${
+                          darkMode
+                            ? "group-hover:text-yellow-800"
+                            : "group-hover:text-yellow-600"
+                        }`}
+                      >
                         {React.cloneElement(option.icon, { size: 20 })}
                       </div>
                       {!isSidebarOpen && (
-                        <span className="group-hover:text-yellow-800 font-semibold">
+                        <span
+                          className={`${
+                            darkMode
+                              ? "group-hover:text-yellow-800"
+                              : "group-hover:text-yellow-600"
+                          } font-semibold`}
+                        >
                           {option.name}
                         </span>
                       )}
@@ -304,19 +324,38 @@ export const Sidebar = () => {
                     <Button
                       className={`group ${
                         location.pathname === option.to
-                          ? "bg-yellow-800"
-                          : "bg-stone-700"
+                          ? darkMode
+                            ? "bg-yellow-800"
+                            : "bg-yellow-600"
+                          : darkMode
+                          ? "bg-stone-700"
+                          : "bg-stone-300 text-stone-700"
                       }  transition-all ${
                         isSidebarOpen
                           ? "w-12"
                           : "flex gap-2 justify-start w-full"
                       }`}
                     >
-                      <div className="group-hover:text-yellow-800">
+                      <div
+                        className={`${
+                          darkMode ? "text-white" : "text-stone-700"
+                        } ${
+                          darkMode
+                            ? "group-hover:text-yellow-800"
+                            : "group-hover:text-yellow-600"
+                        }`}
+                      >
+                        {" "}
                         {React.cloneElement(option.icon, { size: 20 })}
                       </div>
                       {!isSidebarOpen && (
-                        <span className="group-hover:text-yellow-800 font-semibold">
+                        <span
+                          className={`${
+                            darkMode
+                              ? "group-hover:text-yellow-800"
+                              : "group-hover:text-yellow-600"
+                          } font-semibold`}
+                        >
                           {option.name}
                         </span>
                       )}
@@ -335,19 +374,37 @@ export const Sidebar = () => {
                     <Button
                       className={`group ${
                         location.pathname === option.to
-                          ? "bg-yellow-800"
-                          : "bg-stone-700"
+                          ? darkMode
+                            ? "bg-yellow-800"
+                            : "bg-yellow-600"
+                          : darkMode
+                          ? "bg-stone-700"
+                          : "bg-stone-300 text-stone-700"
                       }  transition-all ${
                         isSidebarOpen
                           ? "w-12"
                           : "flex gap-2 justify-start w-full"
                       }`}
                     >
-                      <div className="group-hover:text-yellow-800">
+                      <div
+                        className={`${
+                          darkMode ? "text-white" : "text-stone-700"
+                        } ${
+                          darkMode
+                            ? "group-hover:text-yellow-800"
+                            : "group-hover:text-yellow-600"
+                        }`}
+                      >
                         {React.cloneElement(option.icon, { size: 20 })}
                       </div>
                       {!isSidebarOpen && (
-                        <span className="group-hover:text-yellow-800 font-semibold">
+                        <span
+                          className={`${
+                            darkMode
+                              ? "group-hover:text-yellow-800"
+                              : "group-hover:text-yellow-600"
+                          } font-semibold`}
+                        >
                           {option.name}
                         </span>
                       )}
@@ -357,22 +414,38 @@ export const Sidebar = () => {
               )}
             </AccordionSideBar>
             {options.map((value) => (
-              <NavLink to={value.to}>
+              <NavLink to={value.to} >
                 <Button
                   key={value.id}
                   className={`group ${
                     location.pathname === value.to
-                      ? "bg-yellow-800"
-                      : "bg-stone-700"
-                  }  transition-all ${
+                      ? darkMode
+                        ? "bg-yellow-800"
+                        : "bg-yellow-600"
+                      : darkMode
+                      ? "bg-stone-700"
+                      : "bg-stone-300 text-stone-700"
+                    }  transition-all ${
                     isSidebarOpen ? "w-12" : "flex gap-2 justify-start w-full"
                   }`}
                 >
-                  <div className="group-hover:text-yellow-800">
+                  <div
+                    className={`${darkMode ? "text-white" : "text-stone-700"} ${
+                      darkMode
+                        ? "group-hover:text-yellow-800"
+                        : "group-hover:text-yellow-600"
+                    }`}
+                  >
                     {React.cloneElement(value.icon, { size: 20 })}
                   </div>
                   {!isSidebarOpen && (
-                    <span className="group-hover:text-yellow-800 font-semibold">
+                    <span
+                      className={`${
+                        darkMode
+                          ? "group-hover:text-yellow-800"
+                          : "group-hover:text-yellow-600"
+                      } font-semibold`}
+                    >
                       {value.name}
                     </span>
                   )}
@@ -387,20 +460,25 @@ export const Sidebar = () => {
                 key={value.id}
                 className={`group ${
                   location.pathname === value.to
-                    ? "bg-yellow-800"
-                    : "bg-stone-700"
+                    ? darkMode
+                      ? "bg-yellow-800"
+                      : "bg-yellow-600"
+                    : darkMode
+                    ? "bg-stone-700"
+                    : "bg-stone-300"
                 }  transition-all ${
                   isSidebarOpen ? "w-12" : "flex gap-2 justify-start w-full"
                 }`}
               >
-                <div className="group-hover:text-yellow-800">
+                <div
+                  className={`${darkMode ? "text-white" : "text-stone-700"} ${
+                    darkMode
+                      ? "group-hover:text-yellow-800"
+                      : "group-hover:text-yellow-600"
+                  }`}
+                >
                   {React.cloneElement(value.icon, { size: 20 })}
                 </div>
-                {!isSidebarOpen && (
-                  <span className="group-hover:text-yellow-800 font-semibold">
-                    {value.name}
-                  </span>
-                )}
               </Button>
             </NavLink>
           ))
@@ -413,9 +491,15 @@ export const Sidebar = () => {
       >
         <button onClick={() => toggleSidebar()} className="pt-4">
           {isSidebarOpen ? (
-            <TbArrowBadgeRightFilled size={28} />
+            <TbArrowBadgeRightFilled
+              size={28}
+              color={!darkMode ? "black" : "white"}
+            />
           ) : (
-            <TbArrowBadgeLeftFilled size={28} />
+            <TbArrowBadgeLeftFilled
+              size={28}
+              color={!darkMode ? "black" : "white"}
+            />
           )}
         </button>
       </div>

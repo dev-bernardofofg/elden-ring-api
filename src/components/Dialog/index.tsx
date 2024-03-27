@@ -16,12 +16,16 @@ interface DialogProps {
 }
 
 import { Button } from "../ui/button";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 export const Dialog = ({ children, content, header, title }: DialogProps) => {
+  const { darkMode } = useDarkMode();
   return (
     <DialogShadcn>
       <DialogTrigger
-        className="bg-stone-700 border-0 w-ful h-full shadow-md"
+        className={`${
+          darkMode ? "bg-stone-700" : "bg-stone-100"
+        } border-0 w-ful h-full shadow-md`}
         asChild
       >
         <Button variant="outline">{children}</Button>
@@ -29,8 +33,14 @@ export const Dialog = ({ children, content, header, title }: DialogProps) => {
       {!header ? (
         <>{content}</>
       ) : (
-        <DialogContent className="bg-yellow-800 text-stone-200 p-0 border-4 border-stone-800">
-          <DialogHeader className="bg-stone-700 rounded-t h-32 p-2 flex w-full items-center">
+        <DialogContent
+          className={`bg-yellow-800 text-stone-200 p-0 border-4 border-stone-800`}
+        >
+          <DialogHeader
+            className={`${
+              darkMode ? "bg-stone-700" : "bg-stone-200"
+            } rounded-t h-32 p-2 flex w-full items-center`}
+          >
             <img src={header} className="size-28" alt={title} />
           </DialogHeader>
           <div className="p-4">

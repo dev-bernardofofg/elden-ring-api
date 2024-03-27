@@ -1,3 +1,4 @@
+import { useDarkMode } from "@/context/DarkModeContext";
 import {
   Accordion,
   AccordionContent,
@@ -19,11 +20,14 @@ export const AccordionSideBar = ({
   icon,
 }: AccordionSideBarProps) => {
   const { isSidebarOpen } = useSidebar();
+  const { darkMode } = useDarkMode();
   return (
     <Accordion
       collapsible
       type="single"
-      className=" bg-stone-700 rounded-lg outline-none  w-full"
+      className={`${
+        darkMode ? "bg-stone-700" : "bg-stone-200"
+      } rounded-lg outline-none  w-full`}
     >
       <AccordionItem value="item-1">
         {!isSidebarOpen && (
