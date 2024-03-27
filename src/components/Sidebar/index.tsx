@@ -250,9 +250,9 @@ export const Sidebar = () => {
   ];
   return (
     <div
-      className={`${isSidebarOpen ? "w-32" : "w-80"} ${
-        darkMode ? "bg-stone-800" : "bg-stone-100"
-      } flex flex-col justify-between items-center py-6 transition-all shadow-lg`}
+      className={`${isSidebarOpen ? "lg:w-32" : "lg:w-80"} ${
+        darkMode ? "bg-stone-900" : "bg-stone-100"
+      } base:w-20 flex flex-col justify-between items-center py-6 transition-all shadow-lg`}
     >
       <div
         className={`flex flex-col ${

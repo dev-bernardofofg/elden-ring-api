@@ -15,7 +15,7 @@ export const App = () => {
       >
         <Sidebar />
         <ButtonDarkMode />
-        <section className="w-[calc(100%-8rem)] p-8">
+        <section className="w-[calc(100%-8rem)] base:w-[calc(100%-4rem)] base:p-4 p-8">
           <Outlet />
           <Toaster />
         </section>

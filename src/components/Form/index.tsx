@@ -19,10 +19,10 @@ export const FormSearch = ({ setName }: FormSearchProps) => {
     reset();
   };
   return (
-    <form className="flex gap-4" onSubmit={handleSubmit(handleFilter)}>
+    <form className="flex base:flex-col md:flex-row gap-4" onSubmit={handleSubmit(handleFilter)}>
       <input
         type="text"
-        className={`text-yellow-800 p-2 rounded w-[23rem] ${
+        className={`text-yellow-800 p-2 rounded w-full ${
           !darkMode ? "bg-white" : "bg-stone-700 placeholder:text-stone-400"
         }`}
         placeholder="Buscar pelo nome"
