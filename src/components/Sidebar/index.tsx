@@ -250,20 +250,22 @@ export const Sidebar = () => {
   ];
   return (
     <div
-      className={`${isSidebarOpen ? "lg:w-32" : "lg:w-80"} ${
+      className={`${!isSidebarOpen ? "lg:w-32" : "lg:w-80"} ${
         darkMode ? "bg-stone-900" : "bg-stone-100"
-      } base:w-20 flex flex-col justify-between items-center py-6 transition-all shadow-lg`}
+      } base:w-full flex flex-col justify-between items-center py-6 transition-all shadow-lg h-full`}
     >
       <div
         className={`flex flex-col ${
-          !isSidebarOpen ? "gap-4" : "gap-2"
+          isSidebarOpen ? "gap-4" : "gap-2"
         } items-center w-full overflow-y-hidden`}
       >
         <div className="mb-4">
-          <img src={Logo} className="size-16 filter drop-shadow-2xl" />
+          <NavLink to="/">
+            <img src={Logo} className="size-16 filter drop-shadow-2xl" />
+          </NavLink>
         </div>
 
-        {!isSidebarOpen ? (
+        {isSidebarOpen ? (
           <div className="flex flex-col gap-4 px-4 w-full overflow-y-auto max-h-screen">
             <AccordionSideBar
               title={optionsEquipments[0].name}
@@ -282,14 +284,14 @@ export const Sidebar = () => {
                           ? "bg-stone-700"
                           : "bg-stone-300 text-stone-700"
                       }  transition-all ${
-                        isSidebarOpen
+                        !isSidebarOpen
                           ? "w-12"
                           : "flex gap-2 justify-start w-full"
                       }`}
                     >
                       <div
                         className={`${
-                          darkMode ? "text-white" : "text-stone-700"
+                          darkMode ? "text-stone-300" : "text-stone-700"
                         } ${
                           darkMode
                             ? "group-hover:text-yellow-800"
@@ -298,7 +300,7 @@ export const Sidebar = () => {
                       >
                         {React.cloneElement(option.icon, { size: 20 })}
                       </div>
-                      {!isSidebarOpen && (
+                      {isSidebarOpen && (
                         <span
                           className={`${
                             darkMode
@@ -331,14 +333,14 @@ export const Sidebar = () => {
                           ? "bg-stone-700"
                           : "bg-stone-300 text-stone-700"
                       }  transition-all ${
-                        isSidebarOpen
+                        !isSidebarOpen
                           ? "w-12"
                           : "flex gap-2 justify-start w-full"
                       }`}
                     >
                       <div
                         className={`${
-                          darkMode ? "text-white" : "text-stone-700"
+                          darkMode ? "text-stone-300" : "text-stone-700"
                         } ${
                           darkMode
                             ? "group-hover:text-yellow-800"
@@ -348,7 +350,7 @@ export const Sidebar = () => {
                         {" "}
                         {React.cloneElement(option.icon, { size: 20 })}
                       </div>
-                      {!isSidebarOpen && (
+                      {isSidebarOpen && (
                         <span
                           className={`${
                             darkMode
@@ -381,14 +383,14 @@ export const Sidebar = () => {
                           ? "bg-stone-700"
                           : "bg-stone-300 text-stone-700"
                       }  transition-all ${
-                        isSidebarOpen
+                        !isSidebarOpen
                           ? "w-12"
                           : "flex gap-2 justify-start w-full"
                       }`}
                     >
                       <div
                         className={`${
-                          darkMode ? "text-white" : "text-stone-700"
+                          darkMode ? "text-stone-300" : "text-stone-700"
                         } ${
                           darkMode
                             ? "group-hover:text-yellow-800"
@@ -397,7 +399,7 @@ export const Sidebar = () => {
                       >
                         {React.cloneElement(option.icon, { size: 20 })}
                       </div>
-                      {!isSidebarOpen && (
+                      {isSidebarOpen && (
                         <span
                           className={`${
                             darkMode
@@ -414,7 +416,7 @@ export const Sidebar = () => {
               )}
             </AccordionSideBar>
             {options.map((value) => (
-              <NavLink to={value.to} >
+              <NavLink to={value.to}>
                 <Button
                   key={value.id}
                   className={`group ${
@@ -424,13 +426,15 @@ export const Sidebar = () => {
                         : "bg-yellow-600"
                       : darkMode
                       ? "bg-stone-700"
-                      : "bg-stone-300 text-stone-700"
-                    }  transition-all ${
-                    isSidebarOpen ? "w-12" : "flex gap-2 justify-start w-full"
+                      : "bg-stone-200 text-stone-700"
+                  }  transition-all ${
+                    !isSidebarOpen ? "w-12" : "flex gap-2 justify-start w-full"
                   }`}
                 >
                   <div
-                    className={`${darkMode ? "text-white" : "text-stone-700"} ${
+                    className={`${
+                      darkMode ? "text-stone-300" : "text-stone-700"
+                    } ${
                       darkMode
                         ? "group-hover:text-yellow-800"
                         : "group-hover:text-yellow-600"
@@ -438,7 +442,7 @@ export const Sidebar = () => {
                   >
                     {React.cloneElement(value.icon, { size: 20 })}
                   </div>
-                  {!isSidebarOpen && (
+                  {isSidebarOpen && (
                     <span
                       className={`${
                         darkMode
@@ -467,7 +471,7 @@ export const Sidebar = () => {
                     ? "bg-stone-700"
                     : "bg-stone-300"
                 }  transition-all ${
-                  isSidebarOpen ? "w-12" : "flex gap-2 justify-start w-full"
+                  !isSidebarOpen ? "w-12" : "flex gap-2 justify-start w-full"
                 }`}
               >
                 <div
@@ -485,12 +489,12 @@ export const Sidebar = () => {
         )}
       </div>
       <div
-        className={`flex w-full px-8 ${
-          !isSidebarOpen ? "justify-end" : "justify-center"
+        className={`flex base:hidden md:block w-full px-8 ${
+          isSidebarOpen ? "justify-end" : "justify-center"
         }`}
       >
         <button onClick={() => toggleSidebar()} className="pt-4">
-          {isSidebarOpen ? (
+          {!isSidebarOpen ? (
             <TbArrowBadgeRightFilled
               size={28}
               color={!darkMode ? "black" : "white"}
