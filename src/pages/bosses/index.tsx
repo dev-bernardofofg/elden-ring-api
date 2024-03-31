@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BossesDialog } from "./dialog";
 import { FormSearch } from "@/components/Form";
+import { Layout } from "@/layout";
 
 export interface BossesProps {
   id: string;
@@ -45,28 +46,25 @@ export const Bosses = () => {
     getData();
   }, [page, nameFilter]);
   return (
-    <div>
-      <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
-        Bosses
-        <FormSearch setName={setNameFilter} />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
-          {data.map((value) =>
-            !value.image ? (
-              <></>
-            ) : (
-              <BossesDialog data={value.id} key={value.id}>
-                <div className="flex flex-col justify-center items-center gap-2">
-                  <img
-                    src={value.image}
-                    className="size-32 object-cover"
-                    title={value.name}
-                  />
-                  <p className="font-semibold">{value.name}</p>
-                </div>
-              </BossesDialog>
-            )
-          )}
-        </div>
+    <Layout title="Bosses">
+      <FormSearch setName={setNameFilter} />
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
+        {data.map((value) =>
+          !value.image ? (
+            <></>
+          ) : (
+            <BossesDialog data={value.id} key={value.id}>
+              <div className="flex flex-col justify-center items-center gap-2">
+                <img
+                  src={value.image}
+                  className="size-32 object-cover"
+                  title={value.name}
+                />
+                <p className="font-semibold">{value.name}</p>
+              </div>
+            </BossesDialog>
+          )
+        )}
       </div>
       <Pagination
         itemsPerPage={16}
@@ -74,6 +72,6 @@ export const Bosses = () => {
         setPage={setPage}
         totalCount={count}
       />
-    </div>
+    </Layout>
   );
 };
