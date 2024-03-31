@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ItemDialog } from "./dialog";
 import { FormSearch } from "@/components/Form";
+import { Layout } from "@/layout";
 
 export interface ItemProps {
   id: string;
@@ -43,28 +44,21 @@ export const Items = () => {
     getData();
   }, [page, nameFilter]);
   return (
-    <div>
-      <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
-        Items
-        <FormSearch setName={setNameFilter} />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
-          {data.map((value) =>
-            !value.image ? (
-              <></>
-            ) : (
-              <ItemDialog data={value.id} key={value.id}>
-                <div className="flex flex-col justify-center items-center gap-2">
-                  <img
-                    src={value.image}
-                    className="size-32"
-                    title={value.name}
-                  />
-                  <p className="font-semibold">{value.name}</p>
-                </div>
-              </ItemDialog>
-            )
-          )}
-        </div>
+    <Layout title="Items">
+      <FormSearch setName={setNameFilter} />
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
+        {data.map((value) =>
+          !value.image ? (
+            <></>
+          ) : (
+            <ItemDialog data={value.id} key={value.id}>
+              <div className="flex flex-col justify-center items-center gap-2">
+                <img src={value.image} className="size-32" title={value.name} />
+                <p className="font-semibold">{value.name}</p>
+              </div>
+            </ItemDialog>
+          )
+        )}
       </div>
       <Pagination
         itemsPerPage={16}
@@ -72,6 +66,6 @@ export const Items = () => {
         setPage={setPage}
         totalCount={count}
       />
-    </div>
+    </Layout>
   );
 };
