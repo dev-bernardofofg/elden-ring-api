@@ -17,7 +17,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ["League Spartas", "sans-serif"],
+      sans: ["Montserrat", "sans-serif"],
     },
     extend: {
       colors: {
