@@ -24,11 +24,11 @@ export const Dialog = ({ children, content, header, title }: DialogProps) => {
     <DialogShadcn>
       <DialogTrigger
         className={`${
-          darkMode ? "bg-stone-700" : "bg-stone-100"
-        } border-0 w-ful h-full shadow-md`}
+          darkMode ? "bg-stone-700 hover:bg-stone-700" : "bg-stone-100 hover:bg-stone-100"
+        } border-0 w-ful h-full shadow-md hover:opacity-70`}
         asChild
       >
-        <Button variant="outline">{children}</Button>
+        <Button variant="outline" className={`${darkMode ? "text-stone-100 hover:text-stone-100" : "text-stone-700 hover:text-stone-700"}`}>{children}</Button>
       </DialogTrigger>
       {!header ? (
         <>{content}</>

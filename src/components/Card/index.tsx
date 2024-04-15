@@ -23,9 +23,9 @@ export const Card = ({ title, subtitle, icon, link }: CardProps) => {
           darkMode
             ? "bg-stone-700 border-stone-600"
             : "bg-stone-200 border-stone-100"
-        }  border-4   min-h-48`}
+        }  border-4 min-h-48 `}
       >
-        <CardHeader className="py-4 ">
+        <CardHeader className="py-4">
           <div
             className={`${
               darkMode ? "bg-stone-600" : "bg-stone-300"
