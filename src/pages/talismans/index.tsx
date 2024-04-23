@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { TalismanDialog } from "./dialog";
 import { FormSearch } from "@/components/Form";
 import { Layout } from "@/layout";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export interface TalismanProps {
   id: string;
@@ -15,11 +16,13 @@ export interface TalismanProps {
 export const Talismans = () => {
   const [data, setData] = useState<TalismanProps[]>([]);
   const [nameFilter, setNameFilter] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [count, setCount] = useState(16);
   const [page, setPage] = useState(0);
 
   const getData = async () => {
     try {
+      setIsLoading(true);
       let response;
       if (nameFilter) {
         response = await axios.get(
@@ -33,6 +36,7 @@ export const Talismans = () => {
 
       setData(response.data.data);
       setCount(response.data.count);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -45,10 +49,15 @@ export const Talismans = () => {
     <Layout title="Talismans">
       <FormSearch setName={setNameFilter} />
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
-        {data.map((value) =>
-          !value.image ? (
-            <></>
-          ) : (
+      {isLoading
+          ? 
+          Array.from({ length: count }).map((_, index) => (
+              <Skeleton key={index} className="h-40" />
+            ))
+          : data.map((value) =>
+              !value.image ? (
+                <></>
+              ) : (
             <TalismanDialog data={value.id} key={value.id}>
               <div className="flex flex-col justify-center items-center gap-2">
                 <img
