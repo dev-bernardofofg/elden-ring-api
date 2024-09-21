@@ -416,7 +416,7 @@ export const Sidebar = () => {
               )}
             </AccordionSideBar>
             {options.map((value) => (
-              <NavLink to={value.to}>
+              <NavLink to={value.to} key={value.id}>
                 <Button
                   key={value.id}
                   className={`group ${
@@ -459,7 +459,7 @@ export const Sidebar = () => {
           </div>
         ) : (
           optionsGeneral.map((value) => (
-            <NavLink to={value.to}>
+            <NavLink to={value.to} key={value.id}>
               <Button
                 key={value.id}
                 className={`group ${
