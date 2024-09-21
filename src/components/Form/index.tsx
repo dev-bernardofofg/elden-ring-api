@@ -1,13 +1,14 @@
 import { useDarkMode } from "@/context/DarkModeContext";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 type FormSearchProps = {
   setName: Dispatch<SetStateAction<string>>;
+  name: string;
 };
 
-export const FormSearch = ({ setName }: FormSearchProps) => {
-  const { register, handleSubmit, reset } = useForm();
+export const FormSearch = ({ setName, name }: FormSearchProps) => {
+  const { register, handleSubmit, reset, setValue } = useForm();
   const { darkMode } = useDarkMode();
 
   const handleFilter = (data: any) => {
@@ -18,8 +19,15 @@ export const FormSearch = ({ setName }: FormSearchProps) => {
     setName("");
     reset();
   };
+
+  useEffect(() => {
+    setValue("name", name);
+  }, [name]);
   return (
-    <form className="flex base:flex-col md:flex-row gap-4" onSubmit={handleSubmit(handleFilter)}>
+    <form
+      className="flex base:flex-col md:flex-row gap-4"
+      onSubmit={handleSubmit(handleFilter)}
+    >
       <input
         type="text"
         className={`text-yellow-800 p-2 rounded w-full ${

@@ -1,10 +1,9 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { AshesDialog } from "./dialog";
 import { Pagination } from "@/components/Pagination";
 import { FormSearch } from "@/components/Form";
 import { Layout } from "@/layout";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useFetchData } from "@/hook/useRequest";
 
 export interface AshesProps {
   id: string;
@@ -16,39 +15,12 @@ export interface AshesProps {
 }
 
 export const Ashes = () => {
-  const [data, setData] = useState<AshesProps[]>([]);
-  const [nameFilter, setNameFilter] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [count, setCount] = useState(16);
-  const [page, setPage] = useState(0);
+  const { count, data, isLoading, nameFilter, page, setNameFilter, setPage } =
+    useFetchData<AshesProps>("https://eldenring.fanapis.com/api/ashes");
 
-  const getData = async () => {
-    try {
-      setIsLoading(true);
-      let response;
-      if (nameFilter) {
-        response = await axios.get(
-          `https://eldenring.fanapis.com/api/ashes?name=${nameFilter}`
-        );
-      } else {
-        response = await axios.get(`
-        https://eldenring.fanapis.com/api/ashes?limit=16&page=${page}
-        `);
-      }
-      setData(response.data.data);
-      setCount(response.data.count);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, [page, nameFilter]);
   return (
     <Layout title="Ashes">
-      <FormSearch setName={setNameFilter} />
+      <FormSearch setName={setNameFilter} name={nameFilter} />
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
         {isLoading
           ? Array.from({ length: count }).map((_, index) => (

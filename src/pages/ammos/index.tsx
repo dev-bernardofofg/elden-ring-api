@@ -1,10 +1,10 @@
 import { Pagination } from "@/components/Pagination";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { AmmoDialog } from "./dialog";
 import { FormSearch } from "@/components/Form";
 import { Layout } from "@/layout";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Empty } from "@/components/Empty";
+import { useFetchData } from "@/hook/useRequest";
 
 export interface AmmosProps {
   id: string;
@@ -22,45 +22,21 @@ interface AttackPowerProps {
 }
 
 export const Ammos = () => {
-  const [data, setData] = useState<AmmosProps[]>([]);
-  const [nameFilter, setNameFilter] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [count, setCount] = useState(16);
-  const [page, setPage] = useState(0);
-
-  const getData = async () => {
-    try {
-      setIsLoading(true);
-      let response;
-      if (nameFilter) {
-        response = await axios.get(
-          `https://eldenring.fanapis.com/api/ammos?name=${nameFilter}`
-        );
-      } else {
-        response = await axios.get(
-          `https://eldenring.fanapis.com/api/ammos?limit=16&page=${page}`
-        );
-      }
-
-      setData(response.data.data);
-      setCount(response.data.count);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, [page, nameFilter]);
+  const { count, data, isLoading, nameFilter, page, setNameFilter, setPage } =
+    useFetchData<AmmosProps>("https://eldenring.fanapis.com/api/ammos");
 
   return (
     <Layout title="Ammos">
-      <FormSearch setName={setNameFilter} />
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
+      <FormSearch setName={setNameFilter} name={nameFilter} />
+      <div
+        className={`${
+          data && data.length === 0
+            ? "flex justify-center"
+            : "grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 "
+        } w-full`}
+      >
         {isLoading
-          ? 
-          Array.from({ length: count }).map((_, index) => (
+          ? Array.from({ length: count }).map((_, index) => (
               <Skeleton key={index} className="h-40" />
             ))
           : data.map((value) =>
@@ -79,7 +55,10 @@ export const Ammos = () => {
                 </AmmoDialog>
               )
             )}
+
+        {data && data.length === 0 && <Empty />}
       </div>
+
       <Pagination
         itemsPerPage={16}
         page={page}
