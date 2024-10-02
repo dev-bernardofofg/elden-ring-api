@@ -1,17 +1,27 @@
 import { useDarkMode } from "@/context/DarkModeContext";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type FormSearchProps = {
   setName: Dispatch<SetStateAction<string>>;
   name: string;
 };
 
+const FormSearchSchema = z.object({
+  name: z.string(),
+});
+
+type FormSearchSchemaType = z.infer<typeof FormSearchSchema>;
+
 export const FormSearch = ({ setName, name }: FormSearchProps) => {
-  const { register, handleSubmit, reset, setValue } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm<FormSearchSchemaType>({
+    resolver: zodResolver(FormSearchSchema),
+  });
   const { darkMode } = useDarkMode();
 
-  const handleFilter = (data: any) => {
+  const handleFilter = (data: { name: string }) => {
     setName(data.name);
   };
 
@@ -22,7 +32,8 @@ export const FormSearch = ({ setName, name }: FormSearchProps) => {
 
   useEffect(() => {
     setValue("name", name);
-  }, [name]);
+  }, [name, setValue]);
+
   return (
     <form
       className="flex base:flex-col md:flex-row gap-4"
@@ -30,8 +41,8 @@ export const FormSearch = ({ setName, name }: FormSearchProps) => {
     >
       <input
         type="text"
-        className={`text-yellow-800 p-2 rounded w-full ${
-          !darkMode ? "bg-white" : "bg-stone-700 placeholder:text-stone-400"
+        className={` p-2 rounded w-full ${
+          !darkMode ? "bg-white text-yellow-950" : "bg-stone-700 placeholder:text-stone-400 text-yellow-50"
         }`}
         placeholder="Buscar pelo nome"
         {...register("name")}
@@ -40,7 +51,7 @@ export const FormSearch = ({ setName, name }: FormSearchProps) => {
         type="submit"
         className={`${
           !darkMode
-            ? "bg-white  text-yellow-800"
+            ? "bg-white text-yellow-800"
             : "bg-stone-700 text-orange-400"
         } font-bold p-2 rounded min-w-36 hover:opacity-70`}
       >
@@ -48,10 +59,11 @@ export const FormSearch = ({ setName, name }: FormSearchProps) => {
       </button>
 
       <button
+        type="button"
         onClick={handleResetForm}
         className={`${
           !darkMode
-            ? "bg-white  text-yellow-800"
+            ? "bg-white text-yellow-800"
             : "bg-stone-700 text-orange-400"
         } font-bold p-2 rounded min-w-36 hover:opacity-70`}
       >
