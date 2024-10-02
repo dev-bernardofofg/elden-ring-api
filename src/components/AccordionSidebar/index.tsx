@@ -7,17 +7,18 @@ import {
 } from "../ui/accordion";
 import { useSidebar } from "@/context/SidebarContext";
 import { ReactNode } from "react";
+import { IconType } from "react-icons/lib";
 
 interface AccordionSideBarProps {
   children: ReactNode;
   title: string;
-  icon: ReactNode;
+  icon: IconType;
 }
 
 export const AccordionSideBar = ({
   children,
   title,
-  icon,
+  icon: Icon,
 }: AccordionSideBarProps) => {
   const { isSidebarOpen } = useSidebar();
   const { darkMode } = useDarkMode();
@@ -33,7 +34,7 @@ export const AccordionSideBar = ({
         {isSidebarOpen && (
           <AccordionTrigger className="px-4 py-3">
             <div className="flex items-center gap-2">
-              {icon}
+              <Icon size={20} />
               <span className="font-semibold">{title}</span>
             </div>
           </AccordionTrigger>
