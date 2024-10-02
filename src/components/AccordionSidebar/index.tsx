@@ -27,12 +27,18 @@ export const AccordionSideBar = ({
       collapsible
       type="single"
       className={`${
-        darkMode ? "bg-stone-700 text-stone-200" : "bg-stone-200 text-stone-700"
-      } rounded-lg outline-none  w-full`}
+        darkMode
+          ? "border-stone-700 text-stone-200"
+          : "border-stone-200 text-stone-700"
+      } bg-transparent border-2 rounded-lg outline-none w-full transition-all`}
     >
       <AccordionItem value="item-1">
         {isSidebarOpen && (
-          <AccordionTrigger className="px-4 py-3">
+          <AccordionTrigger
+            className={`px-4 py-3 rounded-md ${
+              darkMode ? "bg-stone-700" : "bg-stone-300"
+            }`}
+          >
             <div className="flex items-center gap-2">
               <Icon size={20} />
               <span className="font-semibold">{title}</span>

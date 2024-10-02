@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import type { ReactNode } from "react";
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 
 interface SidebarContextProps {
   isSidebarOpen: boolean;
@@ -16,11 +16,25 @@ interface SidebarProviderProps {
 }
 
 export const SidebarProvider = ({ children }: SidebarProviderProps) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  // Recupera o estado inicial do localStorage (true ou false, ou padrão para true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(() => {
+    const storedState = localStorage.getItem("isSidebarOpen");
+    return storedState !== null ? JSON.parse(storedState) : true;
+  });
 
+  // Atualiza o estado e salva no localStorage sempre que o estado mudar
   const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
+    setIsSidebarOpen((prev) => {
+      const newState = !prev;
+      localStorage.setItem("isSidebarOpen", JSON.stringify(newState));
+      return newState;
+    });
   };
+
+  // Efeito para garantir que o estado seja persistido no localStorage ao carregar
+  useEffect(() => {
+    localStorage.setItem("isSidebarOpen", JSON.stringify(isSidebarOpen));
+  }, [isSidebarOpen]);
 
   return (
     <SidebarContext.Provider value={{ isSidebarOpen, toggleSidebar }}>
