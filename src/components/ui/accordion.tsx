@@ -3,7 +3,6 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
-import { useDarkMode } from "@/context/DarkModeContext";
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -19,8 +18,6 @@ const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => {
-  const { darkMode } = useDarkMode();
-
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
@@ -32,11 +29,7 @@ const AccordionTrigger = React.forwardRef<
         {...props}
       >
         {children}
-        <ChevronDownIcon
-          className={`size-5 ${
-            darkMode ? "text-stone-300" : "text-stone-700"
-          } shrink-0 transition-transform duration-200`}
-        />
+        <ChevronDownIcon className="size-5 text-text-primary shrink-0 transition-transform duration-200" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );

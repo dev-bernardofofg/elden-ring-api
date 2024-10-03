@@ -17,9 +17,9 @@ export const Sidebar = () => {
 
   return (
     <div
-      className={`${!isSidebarOpen ? "lg:w-32" : "lg:w-80"} ${
-        darkMode ? "bg-stone-900" : "bg-stone-100"
-      } base:w-full flex flex-col justify-between items-center py-6 transition-all shadow-lg h-full`}
+      className={`${
+        !isSidebarOpen ? "lg:w-32" : "lg:w-80"
+      } bg-background-sidebar base:w-full flex flex-col justify-between items-center py-6 transition-all shadow-lg h-full`}
     >
       <div
         className={`flex flex-col ${

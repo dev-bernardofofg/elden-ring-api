@@ -33,7 +33,7 @@ export const Pagination = ({
       <PaginationContent className="w-full justify-between p-4">
         <PaginationItem>
           <Button
-            className="bg-stone-700 hover:bg-yellow-950 cursor:pointer disabled:cursor-not-allowed min-w-24"
+            className="bg-background-button-pagination hover:bg-background-button-pagination/70 text-text-button cursor:pointer disabled:cursor-not-allowed min-w-24"
             onClick={() => handleOnPagination("decrement")}
             disabled={page === 0}
           >
@@ -42,7 +42,7 @@ export const Pagination = ({
         </PaginationItem>
         <PaginationItem>
           <Button
-            className="bg-stone-700 hover:bg-yellow-950 cursor:pointer disabled:cursor-not-allowed min-w-24"
+            className="bg-background-button-pagination hover:bg-background-button-pagination/70 text-text-button cursor:pointer disabled:cursor-not-allowed min-w-24"
             onClick={() => handleOnPagination("increment")}
             disabled={totalCount !== itemsPerPage}
           >

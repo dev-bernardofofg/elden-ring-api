@@ -24,8 +24,18 @@ module.exports = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        background: {
+          DEFAULT: "hsl(var(--background))",
+          foreground: "hsl(var(--background-foreground))",
+          "low-foreground": "hsl(var(--background-low-foreground))",
+          "medium-foreground": "hsl(var(--background-medium-foreground))",
+          input: "hsl(var(--background-input))",
+          button: "hsl(var(--background-button))",
+          "button-pagination": "hsl(var(--background-button-pagination))",
+          "sidebar": "hsl(var(--background-sidebar))",
+          "sidebar-button": "hsl(var(--sidebar-button))",
+          "sidebar-button-active": "hsl(var(--sidebar-button-active))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -54,6 +64,12 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        text: {
+          primary: "hsl(var(--text))",
+          input: "hsl(var(--text-input))",
+          button: "hsl(var(--text-button))",
+          "sidebar-icon-text": "hsl(var(--sidebar-icon-text))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -67,7 +83,7 @@ module.exports = {
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },  
+          to: { height: "0" },
         },
       },
       animation: {
@@ -75,8 +91,8 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       screens: {
-        'base': '320px'
-      }
+        base: "320px",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
