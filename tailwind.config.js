@@ -32,7 +32,7 @@ module.exports = {
           input: "hsl(var(--background-input))",
           button: "hsl(var(--background-button))",
           "button-pagination": "hsl(var(--background-button-pagination))",
-          "sidebar": "hsl(var(--background-sidebar))",
+          sidebar: "hsl(var(--background-sidebar))",
           "sidebar-button": "hsl(var(--sidebar-button))",
           "sidebar-button-active": "hsl(var(--sidebar-button-active))",
         },

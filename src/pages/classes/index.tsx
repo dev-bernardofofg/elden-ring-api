@@ -2,8 +2,8 @@ import { ClassesDialog } from "./dialog";
 import { Pagination } from "@/components/Pagination";
 import { FormSearch } from "@/components/Form";
 import { Layout } from "@/layout";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useFetchData } from "@/hook/useRequest";
+import { CardGrid } from "@/components/CardGrid";
 
 export interface ClassesProps {
   id: string;
@@ -29,36 +29,26 @@ export const Classes = () => {
   return (
     <Layout title="Classes">
       <FormSearch setName={setNameFilter} name={nameFilter} />
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
-        {isLoading
-          ? Array.from({ length: count }).map((_, index) => (
-              <Skeleton key={index} className="h-40" />
-            ))
-          : data.map((value) =>
-              !value.image ? (
-                <></>
-              ) : (
-                <ClassesDialog data={value.id}>
-                  <div className="flex flex-col justify-center items-center gap-2">
-                    <img
-                      src={value.image}
-                      className="size-32 object-contain"
-                      title={value.name}
-                    />
-                    <p className="font-semibold">{value.name}</p>
-                  </div>
-                </ClassesDialog>
-              )
-            )}
-      </div>
-      {count > 16 && (
-        <Pagination
-          itemsPerPage={16}
-          page={page}
-          setPage={setPage}
-          totalCount={count}
-        />
-      )}
+      <CardGrid count={count} data={data} isLoading={isLoading}>
+        {data.map((value) =>
+          !value.image ? (
+            <></>
+          ) : (
+            <ClassesDialog data={value.id} key={value.id}>
+              <div className="flex flex-col justify-center items-center gap-2">
+                <img src={value.image} className="size-32" title={value.name} />
+                <p className="font-semibold">{value.name}</p>
+              </div>
+            </ClassesDialog>
+          )
+        )}
+      </CardGrid>
+      <Pagination
+        itemsPerPage={16}
+        page={page}
+        setPage={setPage}
+        totalCount={count}
+      />
     </Layout>
   );
 };

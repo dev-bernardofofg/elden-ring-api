@@ -36,7 +36,7 @@
     --background-medium-foreground: 20 6% 90%;
     --background-foreground: 0 0% 83%;
     --background-button: 0 0% 100%;
-    --background-button-pagination: 0 0% 83%;
+    --background-button-pagination: 0 0% 100%;
     --background-sidebar: 60 5% 96%;
     --background-input: 0 0% 100%;
 
@@ -80,10 +80,10 @@
     /* Minhas extensões - BLACK */
     --background: 30 6% 25%;
     --background-low-foreground: 30 6% 25%;
-    --background-medium-foreground: 12 6% 15%;
+    --background-medium-foreground: 18 6% 15%;
     --background-foreground: 0 0% 83%;
     --background-button: 30 6% 25%;
-    --background-button-pagination: 26 83% 14%;
+    --background-button-pagination: 24 10% 10%;
     --background-sidebar: 24 10% 10%;
     --background-input: 30 6% 25%;
 

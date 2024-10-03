@@ -8,11 +8,11 @@ interface LayoutProps {
 
 export const Layout = ({ children, className, title }: LayoutProps) => {
   return (
-    <div>
+    <div className="min-h-full">
       <div
-        className={`flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] base:p-1 md:p-4 ${className}`}
+        className={`grid grid-rows-12 grid-cols-1 flex-col gap-4 h-screen base:p-2 md:p-8 flex-1 ${className}`}
       >
-        <h1 className="font-bold text-xl">{title}</h1>
+        <h1 className="font-bold text-xl row-span-1">{title}</h1>
         {children}
       </div>
     </div>

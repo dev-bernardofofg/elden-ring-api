@@ -35,7 +35,7 @@ export const FormSearch = ({ setName, name }: FormSearchProps) => {
 
   return (
     <form
-      className="flex base:flex-col md:flex-row gap-4"
+      className="row-span-1 flex base:flex-col md:flex-row gap-4"
       onSubmit={handleSubmit(handleFilter)}
     >
       <input
