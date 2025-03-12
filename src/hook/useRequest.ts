@@ -2,7 +2,6 @@ import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
-// Tipos genéricos
 interface FetchDataProps<T> {
   data: T[];
   isLoading: boolean;
@@ -24,7 +23,6 @@ export const useFetchData = <T>(
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Extrair parâmetros da URL
   const searchParams = new URLSearchParams(location.search);
   const pageParam = searchParams.get("page");
   const nameFilterParam = searchParams.get("name") || '';

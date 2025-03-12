@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Skeleton } from "../ui/skeleton";
 import { Empty } from "../Empty";
+import { motion } from "framer-motion";
 
 interface BaseDataCard {
   id: string;
@@ -22,7 +23,12 @@ export const CardGrid = <T extends BaseDataCard>({
   children,
 }: CardGridProps<T>) => {
   return (
-    <div className="row-span-12 overflow-y-scroll [&::-webkit-scrollbar]:hidden">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.7 }}
+      className="row-span-12 overflow-y-scroll [&::-webkit-scrollbar]:hidden"
+    >
       <div
         className={`${
           data && data.length === 0
@@ -38,6 +44,6 @@ export const CardGrid = <T extends BaseDataCard>({
 
         {data && data.length === 0 && <Empty />}
       </div>
-    </div>
+    </motion.div>
   );
 };
